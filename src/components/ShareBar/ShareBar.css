@@ -1,0 +1,11 @@
+.vs-share{display:flex;flex-direction:column;gap:14px}
+.vs-share__top{display:flex;align-items:center;gap:10px}
+.vs-share__v{font-size:var(--font-size-kpi);font-weight:var(--font-weight-heavy);letter-spacing:-.025em}
+.vs-share__bar{position:relative;height:12px;border-radius:6px;background:var(--color-bg-nested);margin:18px 0 16px}
+.vs-share__bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--color-accent-default);transition:width var(--motion-duration-slow) var(--motion-ease)}
+.vs-share__bar em{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--color-chart-norm)}
+.vs-share__bar em.avg{background:var(--color-text-tertiary)}
+.vs-share__bar em span{position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);font-size:11px;font-style:normal;white-space:nowrap;color:var(--color-text-secondary)}
+.vs-share__say{font-size:13px;color:var(--color-text-secondary)}
+.vs-share__say b{color:var(--color-text-primary)}
+.vs-share__bar em.avg span{bottom:auto;top:calc(100% + 4px)}

@@ -1,0 +1,6 @@
+@import '@fontsource-variable/manrope';
+@import './tokens.css';
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-family);color:var(--color-text-primary);background:var(--color-bg-page);font-size:var(--font-size-body);line-height:1.45;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.vs-num{font-variant-numeric:tabular-nums}

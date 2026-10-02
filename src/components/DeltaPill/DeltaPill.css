@@ -1,0 +1,6 @@
+.vs-delta{display:inline-flex;align-items:center;gap:8px;font-size:13px}
+.vs-delta__p{height:24px;padding:0 9px;border-radius:12px;display:inline-flex;align-items:center;font-weight:700;font-variant-numeric:tabular-nums}
+.vs-delta__p--up{background:var(--color-delta-up-bg);color:var(--color-delta-up)}
+.vs-delta__p--down{background:var(--color-delta-down-bg);color:var(--color-delta-down)}
+.vs-delta__p--eq{background:var(--color-bg-card-hover);color:var(--color-text-secondary)}
+.vs-delta__l{color:var(--color-text-secondary)}

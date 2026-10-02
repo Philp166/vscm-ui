@@ -1,0 +1,16 @@
+.vs-rank{position:relative;transition:height var(--motion-duration-base) var(--motion-ease)}
+.vs-rank__r{position:absolute;left:0;right:0;height:48px;display:grid;grid-template-columns:40px minmax(0,1.4fr) minmax(0,1fr) 72px 56px;gap:12px;align-items:center;padding:0 12px;border-radius:14px;font-size:14px;transition:transform var(--motion-duration-slow) var(--motion-ease),background var(--motion-duration-fast)}
+.vs-rank__r:hover{background:var(--color-bg-nested)}
+.vs-rank__r.me{background:var(--color-bg-nested);box-shadow:inset 0 0 0 2px var(--color-accent-default)}
+.vs-rank__p{font-size:18px;font-weight:800}
+.vs-rank__n{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vs-rank__n small{display:block;font-weight:500;color:var(--color-text-tertiary);font-size:12px}
+.vs-rank__t{height:8px;border-radius:4px;background:var(--color-bg-nested);overflow:hidden}
+.vs-rank__r:hover .vs-rank__t,.vs-rank__r.me .vs-rank__t{background:var(--color-bg-card)}
+.vs-rank__t i{display:block;height:100%;border-radius:4px;background:var(--color-chart-series-2);transition:width var(--motion-duration-slow) var(--motion-ease)}
+.vs-rank__r.me .vs-rank__t i{background:var(--color-chart-series-1)}
+.vs-rank__v{text-align:right;font-weight:800}
+.vs-rank__d{text-align:right;font-size:13px;font-weight:700}
+.vs-rank__d.up{color:var(--color-delta-up)}.vs-rank__d.dn{color:var(--color-delta-down)}.vs-rank__d.eq{color:var(--color-text-tertiary)}
+.vs-rank__gap{position:absolute;left:0;right:0;height:24px;display:flex;align-items:center;justify-content:center;color:var(--color-text-tertiary);letter-spacing:.2em}
+@media (max-width:900px){.vs-rank__r{grid-template-columns:32px minmax(0,1fr) 60px 44px}.vs-rank__t{display:none}}

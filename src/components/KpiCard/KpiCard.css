@@ -1,0 +1,15 @@
+.vs-kpi{display:flex;flex-direction:column;gap:10px;position:relative}
+.vs-kpi__v{font-size:var(--font-size-kpi);font-weight:var(--font-weight-heavy);letter-spacing:-.025em;line-height:1}
+.vs-kpi__v small{font-size:15px;color:var(--color-text-secondary);font-weight:var(--font-weight-bold);letter-spacing:0}
+.vs-kpi__ch{width:100%;height:56px;margin-top:4px;cursor:crosshair;touch-action:none}
+.vs-kpi__area{fill:var(--color-accent-default);opacity:.08}
+.vs-kpi__line{fill:none;stroke:var(--color-chart-series-1);stroke-width:2.5;stroke-linecap:round}
+.vs-kpi__dot{fill:var(--color-chart-series-1);stroke:var(--color-bg-card);stroke-width:2;transition:cx .15s,cy .15s}
+.vs-kpi__y{position:absolute;right:0;top:4px;font-size:var(--font-size-caption);color:var(--color-text-tertiary)}
+.vs-kpi__sk{display:flex;flex-direction:column;gap:10px}
+.vs-kpi__sk i{display:block;height:14px;border-radius:7px;background:linear-gradient(90deg,var(--color-gray-200),var(--color-white),var(--color-gray-200));background-size:200% 100%;animation:vs-sk 1.4s infinite linear}
+.vs-kpi__sk i:nth-child(1){height:32px;width:60%}.vs-kpi__sk i:nth-child(2){width:40%}.vs-kpi__sk i:nth-child(3){height:56px}
+@keyframes vs-sk{to{background-position:-200% 0}}
+.vs-kpi__empty{display:flex;flex-direction:column;gap:6px;min-height:110px;justify-content:center}
+.vs-kpi__empty b{font-size:24px;color:var(--color-text-tertiary)}
+.vs-kpi__empty span{font-size:13px;color:var(--color-text-secondary)}

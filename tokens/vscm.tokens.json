@@ -1,0 +1,444 @@
+{
+  "primitives": {
+    "color": {
+      "blue": {
+        "50": {
+          "$type": "color",
+          "$value": "#F0F2FE"
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#E1E5FD"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#C3CBFC"
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#97A4FF"
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#7584FA"
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#5266F4"
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#2E5BE4"
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#193EAA"
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#1B2D83"
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#060D3F"
+        }
+      },
+      "gray": {
+        "50": {
+          "$type": "color",
+          "$value": "#F7F7F9"
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#F2F2F4"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#EAEAEE"
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#D6D7DE"
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#B4B6C2"
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#8C8F9E"
+        }
+      },
+      "ink": {
+        "$type": "color",
+        "$value": "#010101",
+        "$description": "Чернила: основной текст и верхнее меню"
+      },
+      "white": {
+        "$type": "color",
+        "$value": "#FFFFFF"
+      },
+      "green": {
+        "500": {
+          "$type": "color",
+          "$value": "#2FA36B",
+          "$description": "Только для роста в метке динамики"
+        }
+      },
+      "red": {
+        "500": {
+          "$type": "color",
+          "$value": "#E5484D",
+          "$description": "Только для падения в метке динамики"
+        }
+      }
+    }
+  },
+  "semantic": {
+    "color": {
+      "bg": {
+        "page": {
+          "$type": "color",
+          "$value": "{primitives.color.white}",
+          "$description": "Фон страницы"
+        },
+        "card": {
+          "$type": "color",
+          "$value": "{primitives.color.gray.100}",
+          "$description": "Карточка бенто"
+        },
+        "card-hover": {
+          "$type": "color",
+          "$value": "{primitives.color.gray.200}",
+          "$description": "Наведение на карточку"
+        },
+        "nested": {
+          "$type": "color",
+          "$value": "{primitives.color.white}",
+          "$description": "Вложенный блок внутри карточки"
+        },
+        "nav": {
+          "$type": "color",
+          "$value": "{primitives.color.ink}",
+          "$description": "Верхнее меню"
+        },
+        "map-stage": {
+          "$type": "color",
+          "$value": "#ECEEF4",
+          "$description": "Фон сцены карты"
+        }
+      },
+      "text": {
+        "primary": {
+          "$type": "color",
+          "$value": "{primitives.color.ink}"
+        },
+        "secondary": {
+          "$type": "color",
+          "$value": "#0101018F",
+          "$description": "Вторичный текст, 56%"
+        },
+        "tertiary": {
+          "$type": "color",
+          "$value": "#0101015C",
+          "$description": "Подписи, оси, источник, 36%"
+        },
+        "on-accent": {
+          "$type": "color",
+          "$value": "{primitives.color.white}"
+        }
+      },
+      "accent": {
+        "default": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.500}",
+          "$description": "Единственный акцент"
+        },
+        "strong": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.600}",
+          "$description": "Ссылки, активные подписи"
+        },
+        "soft": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.50}",
+          "$description": "Фон выделения строки, чипы"
+        }
+      },
+      "line": {
+        "grid": {
+          "$type": "color",
+          "$value": "{primitives.color.gray.200}",
+          "$description": "Горизонтальная сетка графиков и линии таблиц"
+        }
+      },
+      "chart": {
+        "series-1": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.500}"
+        },
+        "series-2": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.300}"
+        },
+        "series-3": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.800}"
+        },
+        "series-4": {
+          "$type": "color",
+          "$value": "{primitives.color.gray.400}"
+        },
+        "norm": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.800}",
+          "$description": "Линия нормы, пунктир"
+        }
+      },
+      "scale": {
+        "1": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.100}"
+        },
+        "2": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.200}"
+        },
+        "3": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.300}"
+        },
+        "4": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.500}"
+        },
+        "5": {
+          "$type": "color",
+          "$value": "{primitives.color.blue.800}"
+        }
+      },
+      "delta": {
+        "up": {
+          "$type": "color",
+          "$value": "{primitives.color.green.500}"
+        },
+        "up-bg": {
+          "$type": "color",
+          "$value": "#2FA36B1F"
+        },
+        "down": {
+          "$type": "color",
+          "$value": "{primitives.color.red.500}"
+        },
+        "down-bg": {
+          "$type": "color",
+          "$value": "#E5484D1A"
+        }
+      }
+    }
+  },
+  "space": {
+    "4": {
+      "$type": "dimension",
+      "$value": "4px"
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "16": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "20": {
+      "$type": "dimension",
+      "$value": "20px"
+    },
+    "24": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "32": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "40": {
+      "$type": "dimension",
+      "$value": "40px"
+    },
+    "48": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "64": {
+      "$type": "dimension",
+      "$value": "64px"
+    }
+  },
+  "layout": {
+    "columns": {
+      "$type": "number",
+      "$value": 12
+    },
+    "gutter": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "margin-desktop": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "margin-tablet": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "margin-mobile": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "card-padding": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "element-gap": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "title-to-chart": {
+      "$type": "dimension",
+      "$value": "12px"
+    }
+  },
+  "radius": {
+    "card": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "card-mobile": {
+      "$type": "dimension",
+      "$value": "20px"
+    },
+    "panel": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "nested": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "bar": {
+      "$type": "dimension",
+      "$value": "6px"
+    },
+    "pill": {
+      "$type": "dimension",
+      "$value": "999px"
+    }
+  },
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "$value": "Manrope"
+    },
+    "weight": {
+      "regular": {
+        "$type": "fontWeight",
+        "$value": 500
+      },
+      "bold": {
+        "$type": "fontWeight",
+        "$value": 700
+      },
+      "heavy": {
+        "$type": "fontWeight",
+        "$value": 800
+      }
+    },
+    "size": {
+      "hero": {
+        "$type": "dimension",
+        "$value": "72px",
+        "$description": "Герой-цифра"
+      },
+      "page-title": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "section-title": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "kpi": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "card-title": {
+        "$type": "dimension",
+        "$value": "18px"
+      },
+      "body": {
+        "$type": "dimension",
+        "$value": "15px"
+      },
+      "table": {
+        "$type": "dimension",
+        "$value": "14px"
+      },
+      "caption": {
+        "$type": "dimension",
+        "$value": "12px"
+      }
+    }
+  },
+  "shadow": {
+    "popover": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": "#060D3F1F",
+          "offsetX": "0px",
+          "offsetY": "12px",
+          "blur": "32px",
+          "spread": "0px"
+        },
+        {
+          "color": "#060D3F0F",
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "6px",
+          "spread": "0px"
+        }
+      ],
+      "$description": "Только всплывающие слои"
+    }
+  },
+  "motion": {
+    "ease": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.22,
+        0.8,
+        0.2,
+        1
+      ]
+    },
+    "duration": {
+      "fast": {
+        "$type": "duration",
+        "$value": "200ms"
+      },
+      "base": {
+        "$type": "duration",
+        "$value": "400ms"
+      },
+      "slow": {
+        "$type": "duration",
+        "$value": "700ms"
+      }
+    }
+  }
+}

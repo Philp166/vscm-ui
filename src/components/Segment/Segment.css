@@ -1,0 +1,5 @@
+.vs-seg{position:relative;display:inline-flex;gap:2px;padding:3px;border-radius:var(--radius-pill);background:var(--color-bg-card)}
+.vs-seg__th{position:absolute;left:0;top:3px;bottom:3px;border-radius:var(--radius-pill);background:var(--color-accent-default);transition:transform var(--motion-duration-base) var(--motion-ease),width var(--motion-duration-base) var(--motion-ease)}
+.vs-seg button{position:relative;z-index:1;height:34px;padding:0 16px;border-radius:var(--radius-pill);font-size:14px;font-weight:700;color:var(--color-text-secondary);transition:color var(--motion-duration-fast)}
+.vs-seg button.on{color:var(--color-text-on-accent)}
+.vs-seg--sm button{height:28px;padding:0 12px;font-size:13px}
