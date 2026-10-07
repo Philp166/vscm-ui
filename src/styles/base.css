@@ -4,3 +4,6 @@
 body{font-family:var(--font-family);color:var(--color-text-primary);background:var(--color-bg-page);font-size:var(--font-size-body);line-height:1.45;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .vs-num{font-variant-numeric:tabular-nums}
+
+/* Поля ввода: отступ под каретку, чтобы она не обрезалась у левого края; каретка акцентного цвета */
+.vs-field input,.vs-ss__q input,.vs-map .msrch input{padding:0 0 0 2px;margin-left:-2px;align-self:stretch;height:auto;line-height:normal;caret-color:var(--color-accent-default)}
