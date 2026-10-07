@@ -7,7 +7,8 @@ export function fmt(v: number, digits = 0): string {
 /** Округлённая подпись оси: тыс., млн. */
 export function fmtShort(v: number): string {
   if (Math.abs(v) >= 1e6) return fmt(v / 1e6, 1) + NB + 'млн';
-  if (Math.abs(v) >= 1e3) return fmt(Math.round(v / 1e3)) + NB + 'тыс.';
+  if (Math.abs(v) >= 1e4) return fmt(Math.round(v / 1e3)) + NB + 'тыс.';
+  if (Math.abs(v) >= 1e3) return fmt(v / 1e3, (v / 1e3) % 1 ? 1 : 0) + NB + 'тыс.';
   return fmt(v);
 }
 /** Плавная кривая через точки (монотонная, без выбросов). */

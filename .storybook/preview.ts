@@ -10,7 +10,7 @@ const preview: Preview = {
       mobile: { name: 'Телефон 390', styles: { width: '390px', height: '844px' } },
       tablet: { name: 'Планшет 960', styles: { width: '960px', height: '1024px' } },
       desktop: { name: 'Десктоп 1440', styles: { width: '1440px', height: '900px' } } } },
-    options: { storySort: { order: ['Введение', 'Основа', 'Атомы', 'Показатели', 'Динамика', 'Структура', 'Рейтинги', 'Таблицы'] } },
+    options: { storySort: { order: ['Введение', 'Основа', 'Атомы', 'Показатели', 'Динамика', 'Структура', 'Сравнения', 'Таблицы', 'География', 'Потоки и схемы', 'Рейтинги', 'Объекты'] } },
     controls: { expanded: true },
   },
 };

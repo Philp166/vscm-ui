@@ -10,3 +10,11 @@
 .vs-tbl td{padding:12px 14px;border-bottom:1px solid var(--color-gray-100);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .vs-tbl tbody tr:hover td{background:var(--color-gray-50)}
 .vs-tbl tfoot td{position:sticky;bottom:0;background:var(--color-white);font-weight:800;border-top:1px solid var(--color-line-grid);border-bottom:0}
+.vs-tbl__bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.vs-tbl__bar .vs-tbl__q{flex:1;min-width:180px}
+.vs-tbl__cols{position:relative}
+.vs-tbl__cols>button{height:36px;padding:0 12px 0 16px;border-radius:var(--radius-pill);background:var(--color-bg-nested);font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px}
+.vs-tbl__pop{position:absolute;right:0;top:42px;z-index:30;background:var(--color-white);border-radius:16px;box-shadow:var(--shadow-popover);padding:8px;display:flex;flex-direction:column;min-width:200px}
+.vs-tbl__pop label{display:flex;gap:8px;align-items:center;padding:7px 10px;border-radius:10px;font-size:14px;cursor:pointer}
+.vs-tbl__pop label:hover{background:var(--color-bg-card)}
+.vs-tbl.dense td{padding:6px 14px}.vs-tbl.dense th{padding:8px 14px}

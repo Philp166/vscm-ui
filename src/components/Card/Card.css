@@ -1,8 +1,9 @@
 .vs-card{background:var(--color-bg-card);border-radius:var(--radius-card);padding:var(--layout-card-padding);display:flex;flex-direction:column;gap:var(--layout-element-gap);min-width:0}
-.vs-card__h{display:flex;align-items:center;gap:8px;min-height:32px}
+.vs-card__h{display:flex;align-items:center;gap:8px 12px;min-height:32px;flex-wrap:wrap}
 .vs-card__t{font-size:var(--font-size-card-title);font-weight:var(--font-weight-bold);letter-spacing:-.01em;line-height:1.25}
 .vs-card__i{width:18px;height:18px;border-radius:9px;border:1.5px solid var(--color-text-tertiary);color:var(--color-text-tertiary);font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;cursor:help;flex:none}
-.vs-card__a{margin-left:auto;display:flex;gap:8px;align-items:center}
+.vs-card__a{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.vs-card__b{display:flex;flex-direction:column;gap:var(--layout-element-gap);min-width:0}
 .vs-card__f{display:flex;gap:16px;flex-wrap:wrap;font-size:var(--font-size-caption);color:var(--color-text-tertiary)}
 .vs-grid{display:grid;grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));gap:var(--layout-gutter);align-items:start}
 @media (max-width:960px){.vs-grid>.vs-card{grid-column:span 6!important}}

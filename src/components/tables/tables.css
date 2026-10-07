@@ -1,0 +1,20 @@
+.vs-gt__w{overflow:auto;border-radius:var(--radius-nested);background:var(--color-bg-nested)}
+.vs-gt{width:100%;border-collapse:collapse;font-size:var(--font-size-table)}
+.vs-gt th{text-align:right;font-size:12px;font-weight:700;color:var(--color-text-secondary);padding:12px 14px;border-bottom:1px solid var(--color-line-grid);white-space:nowrap}
+.vs-gt th:first-child,.vs-gt td:first-child{text-align:left}
+.vs-gt td{padding:11px 14px;text-align:right;border-bottom:1px solid var(--color-gray-100);font-variant-numeric:tabular-nums;white-space:nowrap}
+.vs-gt tr.grp{cursor:pointer;font-weight:700}.vs-gt tr.grp:hover td{background:var(--color-gray-50)}
+.vs-gt tr.grp .ch{display:inline-flex;width:22px;height:22px;border-radius:11px;align-items:center;justify-content:center;margin-right:10px;background:var(--color-accent-soft);color:var(--color-accent-strong);vertical-align:middle;transition:transform var(--motion-duration-base)}
+.vs-gt tr.grp.open .ch{transform:rotate(180deg);background:var(--color-accent-default);color:#fff}
+.vs-gt tr.sub td{color:var(--color-text-secondary)}.vs-gt tr.sub td:first-child{padding-left:46px}
+.vs-gt tfoot td{font-weight:800;border-top:1px solid var(--color-line-grid);border-bottom:0}
+.vs-gt__sh{display:inline-flex;align-items:center;gap:10px;justify-content:flex-end}
+.vs-gt__sh .tr{display:block;width:60px;height:6px;border-radius:3px;background:var(--color-gray-200);overflow:hidden}.vs-gt__sh .tr i{display:block;height:100%;background:var(--color-chart-series-1)}
+.vs-ht__w{overflow:auto}
+.vs-ht{border-collapse:separate;border-spacing:3px;font-size:13px;width:100%}
+.vs-ht th{font-size:12px;font-weight:700;color:var(--color-text-secondary);padding:6px 8px;white-space:nowrap;transition:color var(--motion-duration-fast)}
+.vs-ht tbody th{text-align:left}.vs-ht th.on{color:var(--color-accent-strong)}
+.vs-ht td{text-align:center;padding:9px 6px;border-radius:8px;font-variant-numeric:tabular-nums;font-weight:700;transition:opacity var(--motion-duration-fast),transform var(--motion-duration-fast)}
+.vs-ht td.dim{opacity:.45}.vs-ht td.cur{transform:scale(1.08);box-shadow:var(--shadow-popover)}
+.vs-ht__lg{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--color-text-secondary)}
+.vs-ht__lg i{width:100px;height:6px;border-radius:3px;background:linear-gradient(90deg,#E1E5FD,#97A4FF,#1B2D83)}

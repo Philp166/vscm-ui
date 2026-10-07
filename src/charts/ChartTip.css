@@ -1,0 +1,4 @@
+.vs-tip{position:absolute;transform:translate(-50%,-8px);background:var(--color-white);border-radius:12px;padding:8px 12px;box-shadow:var(--shadow-popover);font-size:13px;display:flex;flex-direction:column;gap:2px;pointer-events:none;white-space:nowrap;z-index:5}
+.vs-tip--r{transform:translate(-100%,-8px)}.vs-tip--l{transform:translate(0,-8px)}
+.vs-tip b{font-variant-numeric:tabular-nums}
+.vs-tip .k{display:inline-block;width:8px;height:8px;border-radius:4px;margin-right:6px}

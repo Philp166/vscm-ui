@@ -1,0 +1,10 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { MultiRanking, PlaceStrip } from './Rankings';
+import { VUZ, rnd, resetRnd } from '../../demo/data';
+resetRnd(21);
+const items = VUZ.map(([name, sub], i) => ({ name, sub, values: { emp: 79 - i * 0.55 + (rnd() - 0.5) * 3, sal: Math.round(95 - i * 1.6 + (rnd() - 0.5) * 24), tgt: +(5 + rnd() * 25).toFixed(1) } }));
+const all = [...items.map((i) => +i.values.emp.toFixed(1))]; for (let k = all.length; k < 539; k++) all.push(+(46 + Math.pow(rnd(), 1.3) * 26).toFixed(1));
+const meta: Meta = { title: 'Рейтинги/Блоки' };
+export default meta;
+export const ПоНесколькимПоказателям: StoryObj = { render: () => <MultiRanking title="Сводный рейтинг вузов" items={items} metrics={[{ key: 'emp', name: 'Трудоустройство', short: 'Труд.' }, { key: 'sal', name: 'Зарплата', short: 'Зарпл.' }, { key: 'tgt', name: 'Целевое обучение', short: 'Целев.' }]} /> };
+export const МестоОбъекта: StoryObj = { render: () => <PlaceStrip title="Место по доле трудоустроенных, 2024" names={items.map((i) => i.name)} values={items.map((i) => +i.values.emp.toFixed(1))} all={all} /> };

@@ -1,0 +1,11 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { GroupedTable, HeatTable } from './Tables';
+import { rnd, resetRnd } from '../../demo/data';
+resetRnd(5);
+const mk = (name: string, n: number) => { const grads = Math.round(8000 + rnd() * 30000); return { name, orgs: n, grads, employed: Math.round(grads * (0.58 + rnd() * 0.14)) }; };
+const groups = [{ name: 'Приволжский ФО', rows: [mk('Татарстан', 18), mk('Самарская обл.', 13), mk('Нижегородская обл.', 21), mk('Башкортостан', 15)] }, { name: 'Центральный ФО', rows: [mk('Москва', 120), mk('Московская обл.', 31), mk('Воронежская обл.', 17)] }, { name: 'Сибирский ФО', rows: [mk('Новосибирская обл.', 22), mk('Томская обл.', 11), mk('Красноярский край', 14)] }];
+const regions = ['Татарстан', 'Свердловская обл.', 'Новосибирская обл.', 'Томская обл.', 'Ростовская обл.', 'Воронежская обл.', 'Самарская обл.', 'Нижегородская обл.', 'Краснодарский край', 'Башкортостан'];
+const meta: Meta = { title: 'Таблицы/Группировка и тепловая' };
+export default meta;
+export const Группировка: StoryObj = { render: () => <GroupedTable title="Выпускники и трудоустройство по округам и регионам" groups={groups} /> };
+export const Тепловая: StoryObj = { render: () => <HeatTable title="Доля трудоустроенных по регионам и годам" unit="%" cols={['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024']} rows={regions.map((name) => { const b = 56 + rnd() * 10; return { name, values: Array.from({ length: 9 }, (_, i) => +(b + i * 0.9 + (rnd() - 0.5) * 3).toFixed(1)) }; })} /> };
