@@ -17,9 +17,10 @@ export function IconButton({ icon, label, onClick, dark }: { icon: string; label
   return <button className={`vs-ibtn${dark ? ' vs-ibtn--dark' : ''}`} aria-label={label} title={label} onClick={onClick}><Icon name={icon} /></button>;
 }
 
-/** Поле ввода без обводки: серое, при фокусе синяя рамка. */
-export function Field({ icon, ...rest }: React.InputHTMLAttributes<HTMLInputElement> & { icon?: string }) {
-  return <label className="vs-field">{icon && <Icon name={icon} size={18} />}<input {...rest} /></label>;
+/** Поле ввода без обводки: серое, при фокусе синяя рамка.
+ *  grow — поисковое поведение (как поиск на карте): при фокусе поле плавно вытягивается. */
+export function Field({ icon, grow, ...rest }: React.InputHTMLAttributes<HTMLInputElement> & { icon?: string; grow?: boolean }) {
+  return <label className={`vs-field${grow ? ' vs-field--grow' : ''}`}>{icon && <Icon name={icon} size={18} />}<input {...rest} /></label>;
 }
 
 /** Чип: выбранный фильтр с крестиком. */

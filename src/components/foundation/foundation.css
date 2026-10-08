@@ -12,6 +12,8 @@
 .vs-ibtn--dark{background:rgba(255,255,255,.08);color:#fff}
 .vs-field{display:flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:var(--radius-pill);background:var(--color-bg-card);color:var(--color-text-tertiary);transition:box-shadow var(--motion-duration-fast)}
 .vs-field:focus-within{box-shadow:0 0 0 2px var(--color-accent-default)}
+.vs-field--grow{width:var(--vs-field-w,280px);max-width:100%;transition:width .3s cubic-bezier(.2,.7,.2,1),box-shadow var(--motion-duration-fast)}
+.vs-field--grow:focus-within{width:var(--vs-field-w-focus,360px)}
 .vs-field input{border:0;background:none;outline:none;font:inherit;font-size:15px;flex:1;min-width:0;color:var(--color-text-primary)}
 .vs-chip{display:inline-flex;align-items:center;gap:4px;height:32px;padding:0 6px 0 14px;border-radius:var(--radius-pill);background:var(--color-accent-soft);color:var(--color-blue-700);font-size:13px;font-weight:700}
 .vs-chip button{width:22px;height:22px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;color:var(--color-blue-700)}
