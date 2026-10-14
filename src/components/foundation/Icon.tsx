@@ -20,6 +20,13 @@ const P: Record<string, React.ReactNode> = {
 };
 export type IconName = keyof typeof P;
 export const ICON_NAMES = Object.keys(P);
-export function Icon({ name, size = 20 }: { name: string; size?: number }) {
+export interface IconProps {
+  /** Имя иконки из набора: `search`, `info`, `chevron-down`, `chevron-right`, `chevron-left`, `download`, `table`, `bell`, `bot`, `x`, `arrow-up`, `arrow-down`, `check`, `calendar`, `map-pin`, `refresh`. Полный список — `ICON_NAMES`. */
+  name: string;
+  /** Размер в пикселях. */
+  size?: number;
+}
+/** Иконка из набора Lucide, линия 1,75, цвет берёт от текста (`currentColor`). Новые иконки добавляются в этот файл. */
+export function Icon({ name, size = 20 }: IconProps) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden style={{ flex: 'none', display: 'inline-block', verticalAlign: 'middle' }}>{P[name]}</svg>;
 }

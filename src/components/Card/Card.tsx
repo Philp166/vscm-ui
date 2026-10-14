@@ -4,14 +4,15 @@ import './Card.css';
 export interface CardProps {
   /** Заголовок карточки: постоянный, не меняется от фильтров */
   title?: string;
-  /** Подсказка по значку «i» */
+  /** Текст подсказки по значку «i» рядом с заголовком. Значок показывается, только если задан `title` или `action`. */
   info?: string;
-  /** Одно действие справа в шапке */
+  /** Одно действие справа в шапке: переключатель, кнопка, выбор. Не больше одного элемента. */
   action?: React.ReactNode;
-  /** Источник и дата внизу */
+  /** Подвал карточки: источник данных и дата обновления. */
   footer?: React.ReactNode;
-  /** Ширина по сетке из 12 колонок: 3, 4, 6, 12 */
+  /** Ширина в колонках сетки `Grid` (12 колонок). Работает, только если карточка лежит прямо в `Grid`. */
   span?: 3 | 4 | 6 | 12;
+  /** Содержимое карточки. */
   children?: React.ReactNode;
 }
 
@@ -32,7 +33,12 @@ export function Card({ title, info, action, footer, span, children }: CardProps)
   );
 }
 
-/** Сетка 12 колонок с промежутком 24. */
-export function Grid({ children }: { children: React.ReactNode }) {
+export interface GridProps {
+  /** Карточки `Card` со свойством `span` или любые блоки с `grid-column: span N`. */
+  children: React.ReactNode;
+}
+
+/** Сетка бенто: 12 колонок, промежуток 24. Поля страницы задаёт родитель. */
+export function Grid({ children }: GridProps) {
   return <div className="vs-grid">{children}</div>;
 }

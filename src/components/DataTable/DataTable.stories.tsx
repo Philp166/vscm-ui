@@ -12,4 +12,5 @@ const meta: Meta<typeof DataTable<Row>> = {
     { key: 'grad', title: 'Выпускники', total: true }, { key: 'emp', title: 'Трудоустроено', total: true }, { key: 'share', title: 'Доля, %', digits: 1 }] },
 };
 export default meta;
+/** Сортировка по заголовку, закреплённые шапка и первый столбец, поиск, выбор столбцов, плотность «Обычно / Компактно», итог по найденным. */
 export const Базовая: StoryObj<typeof DataTable<Row>> = {};

@@ -2,11 +2,15 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import './SearchSelect.css';
 
 export interface SearchSelectProps {
+  /** Полный список вариантов: регионы, вузы, специальности. Поиск идёт по вхождению без учёта регистра. */
   options: string[];
+  /** Индекс выбранного варианта в `options`. Компонент управляемый: значение хранит родитель. */
   value: number;
+  /** Вызывается с индексом выбранного варианта (кликом или Enter). */
   onChange: (index: number) => void;
-  /** Подпись перед значением, например «Ваш вуз:» */
+  /** Подпись перед значением, например «Ваш вуз:». */
   prefix?: string;
+  /** Подсказка в поле поиска внутри списка. */
   placeholder?: string;
 }
 

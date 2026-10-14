@@ -1,0 +1,33 @@
+# Выпуск версии пакета: при отправке тега вида v0.2.0 собирает библиотеку
+# и выкладывает архив vscm-ui-<версия>.tgz в релиз на GitHub.
+name: Release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm ci
+      - name: Версия тега совпадает с package.json
+        id: v
+        run: |
+          V=$(node -p "require('./package.json').version")
+          test "v$V" = "$GITHUB_REF_NAME"
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+      - run: npm run typecheck
+      - run: npm run package
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: vscm-ui-*.tgz
+          body: |
+            Установка:
+            ```
+            npm install https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/vscm-ui-${{ steps.v.outputs.version }}.tgz
+            ```
+            Что изменилось — в CHANGELOG.md.

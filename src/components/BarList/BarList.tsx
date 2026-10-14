@@ -3,15 +3,20 @@ import { Card } from '../Card/Card';
 import { fmt, fmtShort } from '../../utils/format';
 import './BarList.css';
 
+/** Строка горизонтальных столбцов. `note` — серая приписка под названием. */
 export interface BarItem { name: string; value: number; note?: string }
 export interface BarListProps {
+  /** Заголовок карточки. */
   title: string;
+  /** Категории. Сортируются по убыванию автоматически. */
   items: BarItem[];
-  /** Сколько строк показать до «Ещё N» */
+  /** Сколько строк показать до кнопки «Ещё N». */
   top?: number;
-  /** Выделенная строка: остальные серые */
+  /** Название выделенной строки: она синяя, остальные серые. */
   highlight?: string;
+  /** Единица после значения. Если не задана вместе с `digits`, числа сокращаются: «812 тыс.». */
   unit?: string;
+  /** Знаков после запятой. */
   digits?: number;
 }
 

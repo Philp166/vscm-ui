@@ -9,5 +9,7 @@ const meta: Meta<typeof LineChart> = {
   args: { title: 'Вакансии для выпускников по месяцам', labels, series: [{ name: 'Высшее', values: wave(42000, 6000, 0) }, { name: 'Среднее профессиональное', values: wave(31000, 4000, 1) }], periods: { 'Год': 12, '3 года': 36 } },
 };
 export default meta;
+/** Две линии по месяцам, переключатель периода «Год / 3 года» в шапке. Легенда кликабельная, при наведении — линейка и подсказка. */
 export const ДвеСерии: StoryObj<typeof LineChart> = {};
+/** Одна линия с нормой пунктиром, без переключателя периода. */
 export const СНормой: StoryObj<typeof LineChart> = { args: { title: 'Доля трудоустроенных, 2020–2024', labels: ['2020', '2021', '2022', '2023', '2024'], series: [{ name: 'Доля', values: [58, 61.3, 64.2, 65.8, 65.4] }], norm: { value: 70, label: 'норма 70%' }, periods: undefined } };

@@ -7,11 +7,27 @@ import { useMounted } from '../../charts/chart';
 import { fmt } from '../../utils/format';
 import './compare.css';
 
+/** Уровни сравнения: индекс уровня используется в `CompareSelection.level` и как ключ `ComparePickerProps.options`. */
 export const LEVELS = ['Округа', 'Регионы', 'Города', 'Организации'] as const;
-export interface CompareSelection { level: number; a: string; b: string }
+/** Выбор сравнения. Значение, начинающееся с «Все», означает «все объекты уровня»: в `a` — рейтинг всех, в `b` — среднее по стране. */
+export interface CompareSelection {
+  /** Индекс уровня в `LEVELS`. */
+  level: number;
+  /** Объект А. */
+  a: string;
+  /** Объект Б. */
+  b: string;
+}
 
 /* ---------- Строка выбора и окно ---------- */
-export interface ComparePickerProps { value: CompareSelection; options: Record<number, string[]>; onChange: (v: CompareSelection, applyAll: boolean) => void }
+export interface ComparePickerProps {
+  /** Текущий выбор. Компонент управляемый: значение хранит родитель. */
+  value: CompareSelection;
+  /** Объекты по уровням: ключ — индекс уровня в `LEVELS`, значение — список названий. Пункт «Все …» добавляется автоматически. */
+  options: Record<number, string[]>;
+  /** Вызывается по кнопке «Готово»: новый выбор и отметка «Применить ко всем блокам». */
+  onChange: (v: CompareSelection, applyAll: boolean) => void;
+}
 /** Строка выбора у блока: «Организации: МГУ против среднего по стране». По нажатию — окно: уровень, А, Б. В каждой колонке есть «Все…». */
 export function ComparePicker({ value, options, onChange }: ComparePickerProps) {
   const [open, setOpen] = useState(false), [d, setD] = useState(value), [all, setAll] = useState(false); const ref = useRef<HTMLDivElement>(null);
@@ -37,9 +53,25 @@ export function ComparePicker({ value, options, onChange }: ComparePickerProps) 
 }
 
 /* ---------- Показатели объектов: зеркало ---------- */
+/** Показатель зеркального сравнения: значения А и Б, единица и знаки после запятой. Лучшим считается большее значение. */
 export interface MirrorMetric { name: string; a: number; b: number; unit?: string; digits?: number }
+/** Общие свойства блоков сравнения А и Б. */
+export interface CompareBlockProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Название объекта А. */
+  aName: string;
+  /** Название объекта Б. */
+  bName: string;
+  /** Строка выбора `ComparePicker` в шапке карточки. */
+  picker?: React.ReactNode;
+}
+export interface MirrorCompareProps extends CompareBlockProps {
+  /** Показатели, по строке на каждый. */
+  metrics: MirrorMetric[];
+}
 /** Зеркальное сравнение А и Б по показателям: полосы расходятся от центра, у лучшего — синий. */
-export function MirrorCompare({ title, aName, bName, metrics, picker }: { title: string; aName: string; bName: string; metrics: MirrorMetric[]; picker?: React.ReactNode }) {
+export function MirrorCompare({ title, aName, bName, metrics, picker }: MirrorCompareProps) {
   const m = useMounted();
   return (
     <Card title={title} action={picker}>
@@ -53,9 +85,14 @@ export function MirrorCompare({ title, aName, bName, metrics, picker }: { title:
 }
 
 /* ---------- Выполнение норм ---------- */
+/** Норма: название, значение нормы, значения А и Б в %. `max: true` — норма «не более»: меньше — лучше. */
 export interface NormRow { name: string; norm: number; a: number; b: number; /** Норма «не более»: меньше — лучше */ max?: boolean }
+export interface NormCompareProps extends CompareBlockProps {
+  /** Нормы, все значения в процентах (0–100). */
+  rows: NormRow[];
+}
 /** Выполнение норм: для каждой нормы две полосы, А и Б, отметка нормы и вывод «выполнено / не хватает». */
-export function NormCompare({ title, aName, bName, rows, picker }: { title: string; aName: string; bName: string; rows: NormRow[]; picker?: React.ReactNode }) {
+export function NormCompare({ title, aName, bName, rows, picker }: NormCompareProps) {
   const m = useMounted();
   return (
     <Card title={title} action={picker}>
@@ -69,9 +106,16 @@ export function NormCompare({ title, aName, bName, rows, picker }: { title: stri
 }
 
 /* ---------- Разрыв по специальностям ---------- */
+/** Строка гантелей: название и значения А и Б. */
 export interface GapRow { name: string; a: number; b: number }
+export interface GapDumbbellProps extends CompareBlockProps {
+  /** Строки (специальности). Сортировка «По А» или «По разрыву» переключается в шапке. */
+  rows: GapRow[];
+  /** Единица разрыва. Для `%` разрыв подписывается в п.п. */
+  unit?: string;
+}
 /** Гантели: по каждой специальности две точки, А и Б, линия между ними — разрыв. Сортировка по разрыву. */
-export function GapDumbbell({ title, aName, bName, rows, unit = '%', picker }: { title: string; aName: string; bName: string; rows: GapRow[]; unit?: string; picker?: React.ReactNode }) {
+export function GapDumbbell({ title, aName, bName, rows, unit = '%', picker }: GapDumbbellProps) {
   const [sort, setSort] = useState(0); const m = useMounted();
   const order = [...rows].sort((x, y) => (sort ? Math.abs(y.a - y.b) - Math.abs(x.a - x.b) : y.a - x.a));
   const lo = Math.min(...rows.flatMap((r) => [r.a, r.b])) - 4, hi = Math.max(...rows.flatMap((r) => [r.a, r.b])) + 4, pos = (v: number) => ((v - lo) / (hi - lo)) * 100;

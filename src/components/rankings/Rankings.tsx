@@ -6,10 +6,22 @@ import { fmt } from '../../utils/format';
 import './rankings.css';
 
 /* ---------- Рейтинг по нескольким показателям ---------- */
+/** Объект сводного рейтинга: название, приписка и значения по ключам показателей из `metrics`. */
 export interface MultiItem { name: string; sub?: string; values: Record<string, number> }
+/** Показатель сводного рейтинга: ключ в `MultiItem.values`, название и короткое название для узкого экрана. Больше — лучше. */
 export interface MultiMetric { key: string; name: string; short?: string }
+export interface MultiRankingProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Все объекты. Место по каждому показателю и итоговое (среднее место) считаются автоматически. */
+  items: MultiItem[];
+  /** Показатели-столбцы. */
+  metrics: MultiMetric[];
+  /** Сколько строк показать. */
+  top?: number;
+}
 /** Итоговое место — среднее место по показателям. Полосы и места по каждому: видно, за счёт чего объект высоко. Нажатие на заголовок пересортировывает. */
-export function MultiRanking({ title, items, metrics, top = 12 }: { title: string; items: MultiItem[]; metrics: MultiMetric[]; top?: number }) {
+export function MultiRanking({ title, items, metrics, top = 12 }: MultiRankingProps) {
   const [sk, setSk] = useState('sum'); const RH = 52;
   const ranks = useMemo(() => Object.fromEntries(metrics.map((m) => { const s = [...items].sort((a, b) => b.values[m.key] - a.values[m.key]); return [m.key, new Map(s.map((it, i) => [it, i + 1]))]; })), [items, metrics]);
   const score = (it: MultiItem) => metrics.reduce((a, m) => a + ranks[m.key].get(it)!, 0) / metrics.length;
@@ -27,8 +39,20 @@ export function MultiRanking({ title, items, metrics, top = 12 }: { title: strin
 }
 
 /* ---------- Место объекта ---------- */
+export interface PlaceStripProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Объекты, которые можно выбрать поиском в шапке. По умолчанию первый. */
+  names: string[];
+  /** Значения выбранных объектов, по одному на каждое название из `names`. */
+  values: number[];
+  /** Значения всех объектов страны (точки на полосе). Место, медиана и топ-10% считаются по нему. Больше — лучше. */
+  all: number[];
+  /** Единица у значений. */
+  unit?: string;
+}
 /** «Где мы»: место крупно, фраза «лучше, чем X%», все объекты страны точками, медиана и зона топ-10%. */
-export function PlaceStrip({ title, names, values, all, unit = '%' }: { title: string; names: string[]; values: number[]; all: number[]; unit?: string }) {
+export function PlaceStrip({ title, names, values, all, unit = '%' }: PlaceStripProps) {
   const [i, setI] = useState(0); const v = values[i], sorted = [...all].sort((a, b) => b - a), n = all.length;
   const place = sorted.findIndex((x) => x <= v) + 1, med = sorted[Math.floor(n / 2)], t10 = sorted[Math.floor(n * 0.1)], better = Math.round((1 - place / n) * 100);
   const lo = Math.min(...all) - 1, hi = Math.max(...all) + 1, W = 760, x = (a: number) => 20 + ((a - lo) / (hi - lo)) * (W - 40);

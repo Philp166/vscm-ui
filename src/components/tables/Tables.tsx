@@ -6,10 +6,19 @@ import { fmt } from '../../utils/format';
 import './tables.css';
 
 /* ---------- Группировка с подытогами ---------- */
+/** Строка группированной таблицы: территория, число организаций, выпускников и трудоустроенных. */
 export interface GroupRow { name: string; orgs: number; grads: number; employed: number }
+/** Группа (например, округ) со строками (регионами). */
 export interface Group { name: string; rows: GroupRow[] }
-/** Таблица с группами (округ → регионы): подытог в строке группы, раскрытие по одной или все сразу, итог по стране. */
-export function GroupedTable({ title, groups }: { title: string; groups: Group[] }) {
+export interface GroupedTableProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Группы. Подытоги групп и итог по стране считаются автоматически. Первая группа раскрыта сразу. */
+  groups: Group[];
+}
+/** Таблица с группами (округ → регионы): подытог в строке группы, раскрытие по одной или все сразу, итог по стране.
+ *  Ограничение: столбцы «Организаций», «Выпускники», «Трудоустроено», «Доля» встроены в компонент. */
+export function GroupedTable({ title, groups }: GroupedTableProps) {
   const [open, setOpen] = useState<string[]>([groups[0]?.name]);
   const sum = (rs: GroupRow[]) => rs.reduce((a, r) => ({ orgs: a.orgs + r.orgs, grads: a.grads + r.grads, employed: a.employed + r.employed }), { orgs: 0, grads: 0, employed: 0 });
   const total = sum(groups.flatMap((g) => g.rows)), all = open.length === groups.length;
@@ -28,7 +37,16 @@ export function GroupedTable({ title, groups }: { title: string; groups: Group[]
 }
 
 /* ---------- Тепловая таблица ---------- */
-export interface HeatTableProps { title: string; rows: { name: string; values: number[] }[]; cols: string[]; unit?: string }
+export interface HeatTableProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Строки: название и значения по столбцам `cols`. Цвет ячейки — одна из пяти ступеней синего от минимума до максимума всей таблицы. */
+  rows: { name: string; values: number[] }[];
+  /** Заголовки столбцов (обычно годы). */
+  cols: string[];
+  /** Единица у легенды «мин — макс». */
+  unit?: string;
+}
 /** Тепловая таблица регионы × годы: чем темнее, тем выше. Наведение подсвечивает строку и столбец. */
 export function HeatTable({ title, rows, cols, unit = '' }: HeatTableProps) {
   const [h, setH] = useState<[number, number] | null>(null);

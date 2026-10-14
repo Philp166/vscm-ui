@@ -4,16 +4,20 @@ import { Segment } from '../Segment/Segment';
 import { fmtShort, fmt, smoothPath } from '../../utils/format';
 import './LineChart.css';
 
+/** Линия графика: название для легенды и значения по точкам `labels`. */
 export interface LineSeries { name: string; values: number[] }
 export interface LineChartProps {
+  /** Заголовок карточки. */
   title: string;
-  /** Подписи по оси X */
+  /** Подписи по оси X, по одной на точку. */
   labels: string[];
+  /** Линии, не больше четырёх (цвета берутся из токенов `chart-series-1…4`). Длина `values` равна длине `labels`. Легенда кликабельная: линию можно скрыть. */
   series: LineSeries[];
-  /** Линия нормы пунктиром */
+  /** Линия нормы пунктиром: значение и подпись. */
   norm?: { value: number; label: string };
-  /** Периоды: сколько последних точек показать, например {"Год":12,"3 года":36} */
+  /** Переключатель периода в шапке: подпись → сколько последних точек показать, например `{"Год": 12, "3 года": 36}`. По умолчанию выбран последний. Без свойства показываются все точки. */
   periods?: Record<string, number>;
+  /** Высота области графика, px. */
   height?: number;
 }
 

@@ -3,7 +3,17 @@ import { mountMap } from './engine';
 import russia from './russia.json';
 import './MapNavigator.css';
 
-export interface MapSelection { okrug: string | null; region: string | null; vuz: string | null; flows: boolean }
+/** Что выбрано на карте. `null` — уровень не выбран. */
+export interface MapSelection {
+  /** Полное название федерального округа, например «Сибирский федеральный округ». */
+  okrug: string | null;
+  /** Название региона. */
+  region: string | null;
+  /** Название вуза. */
+  vuz: string | null;
+  /** Включён режим «Куда уезжают». */
+  flows: boolean;
+}
 export interface MapNavigatorProps {
   /** Сообщает, что выбрано: блоки под картой обновляются по этому событию */
   onChange?: (s: MapSelection) => void;
@@ -15,6 +25,7 @@ export interface MapNavigatorProps {
   initialFlows?: boolean;
   /** Сразу плоский вид 2D */
   flat?: boolean;
+  /** Высота карты, px. По умолчанию задаётся стилями. */
   height?: number;
 }
 
@@ -26,7 +37,8 @@ const MARKUP = `<div class="m3" id="stage"><canvas id="cv3"></canvas>
 <div class="ov bl"><div class="lg3" id="lg"></div></div><div class="ov br" id="hint">Тяните, чтобы наклонить. Колесо — ближе. Нажмите на округ</div><div class="ld" id="ld">Загружаем карту</div></div>
 <div class="mtip3" id="mtip"></div>`;
 
-/** Карта-навигатор России (WebGL): страна → округ → регион → вуз, поиск, показатель, 2D / 2.5D, режим «Куда уезжают». Блоки под картой слушают onChange. */
+/** Карта-навигатор России (WebGL): страна → округ → регион → вуз, поиск, показатель, 2D / 2.5D, режим «Куда уезжают». Блоки под картой слушают onChange.
+ *  Ограничение: значения показателей, список вузов и потоки сейчас демонстрационные и формируются внутри движка (`engine.js`); передать свои данные через свойства пока нельзя. Нужен WebGL и пакет `three`. */
 export function MapNavigator({ onChange, initialRegion, initialVuz, initialFlows, flat, height }: MapNavigatorProps) {
   const ref = useRef<HTMLDivElement>(null); const cb = useRef(onChange); cb.current = onChange;
   useEffect(() => {

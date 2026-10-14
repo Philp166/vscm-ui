@@ -8,9 +8,33 @@ import { useAnimatedNumber, useMounted } from '../../charts/chart';
 import './indicators.css';
 
 /* ---------- Герой-цифра ---------- */
-export interface HeroYear { year: string; total: number; employed: number; vo: number; spo: number; voEmp: number; spoEmp: number }
-export interface HeroNumberProps { label: string; unit?: string; data: HeroYear[] }
-/** Главная цифра страницы уровня «Сводка». Одна на экран: табло-перекат, годы капсулами, ВО и СПО на стекле, тренд на всю ширину. */
+/** Данные героя-цифры за один год. */
+export interface HeroYear {
+  /** Год, подпись капсулы. */
+  year: string;
+  /** Всего (главная цифра). */
+  total: number;
+  /** Из них трудоустроено, человек. */
+  employed: number;
+  /** Высшее образование, человек. */
+  vo: number;
+  /** Среднее профессиональное, человек. */
+  spo: number;
+  /** Доля трудоустроенных в ВО, %. */
+  voEmp: number;
+  /** Доля трудоустроенных в СПО, %. */
+  spoEmp: number;
+}
+export interface HeroNumberProps {
+  /** Подпись над цифрой, например «Выпускники за год». */
+  label: string;
+  /** Единица после цифры. */
+  unit?: string;
+  /** Ряд по годам по возрастанию, минимум две точки. По умолчанию выбран последний год. */
+  data: HeroYear[];
+}
+/** Главная цифра страницы уровня «Сводка». Одна на экран: табло-перекат, годы капсулами, ВО и СПО на стекле, тренд на всю ширину.
+ *  Ограничение: структура данных и тексты заточены под выпускников (ВО и СПО, трудоустройство). Для другого показателя компонент нужно обобщить. */
 export function HeroNumber({ label, unit = 'чел.', data }: HeroNumberProps) {
   const [i, setI] = useState(data.length - 1);
   const d = data[i], p = data[i - 1];
@@ -46,9 +70,27 @@ export function HeroNumber({ label, unit = 'чел.', data }: HeroNumberProps) {
 }
 
 /* ---------- Сводка с нормой ---------- */
-export interface NormYear { year: string; graduates: number; employed: number }
-export interface NormSummaryProps { title: string; norm: number; normBasis?: string; data: NormYear[] }
-/** Ответ уровня «Сводка» за полминуты: сколько всего, сколько достигло, какая норма и сколько не хватает. */
+/** Данные сводки с нормой за один год. */
+export interface NormYear {
+  /** Год. */
+  year: string;
+  /** Всего выпускников. */
+  graduates: number;
+  /** Из них трудоустроено. */
+  employed: number;
+}
+export interface NormSummaryProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Норма, % от выпускников. */
+  norm: number;
+  /** Основание нормы (документ): показывается в подсказке «i». */
+  normBasis?: string;
+  /** Ряд по годам по возрастанию, минимум две точки. Переключение лет — стрелками в шапке и точками на графике. */
+  data: NormYear[];
+}
+/** Ответ уровня «Сводка» за полминуты: сколько всего, сколько достигло, какая норма и сколько не хватает.
+ *  Ограничение: подписи «Выпускники» и «Трудоустроено» встроены в компонент. */
 export function NormSummary({ title, norm, normBasis = 'Норма установлена приказом (демо)', data }: NormSummaryProps) {
   const [i, setI] = useState(data.length - 1); const d = data[i];
   const share = (d.employed / d.graduates) * 100, need = Math.round(d.graduates * norm / 100), gap = need - d.employed;
@@ -75,7 +117,18 @@ export function NormSummary({ title, norm, normBasis = 'Норма устано�
 }
 
 /* ---------- Доля кольцом и список по округам ---------- */
-export interface ShareRingProps { title: string; value: number; average: number; target: number; items: { name: string; value: number }[] }
+export interface ShareRingProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Доля по стране, % (в центре кольца). */
+  value: number;
+  /** Среднее, % — отметка на кольце. */
+  average: number;
+  /** Цель, % — отметка на кольце и на полосах списка. */
+  target: number;
+  /** Список справа (обычно округа), доли в %. Сортируется по убыванию автоматически. */
+  items: { name: string; value: number }[];
+}
 /** Доля кольцом с отметками среднего и цели, рядом список по округам с полосами. */
 export function ShareRing({ title, value, average, target, items }: ShareRingProps) {
   const m = useMounted(); const R = 70, C = 2 * Math.PI * R;

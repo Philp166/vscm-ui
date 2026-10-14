@@ -7,9 +7,16 @@ import { fmt } from '../../utils/format';
 import './flows.css';
 
 /* ---------- Воронка пути ---------- */
+/** Ступень воронки: название, серая приписка и число людей. */
 export interface FunnelStep { name: string; sub: string; value: number }
+export interface FunnelProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Ступени по уровням образования: ключ — подпись переключателя (например, «ВО», «СПО»), значение — ступени по порядку, минимум две. */
+  levels: Record<string, FunnelStep[]>;
+}
 /** Путь выпускника: заявления → зачисление → выпуск → трудоустройство. Процент перехода и самая большая потеря словами. */
-export function Funnel({ title, levels }: { title: string; levels: Record<string, FunnelStep[]> }) {
+export function Funnel({ title, levels }: FunnelProps) {
   const keys = Object.keys(levels); const [k, setK] = useState(0); const m = useMounted(); const steps = levels[keys[k]], mx = steps[0].value;
   const conv = steps.slice(1).map((s, i) => s.value / steps[i].value), worst = conv.indexOf(Math.min(...conv));
   return (
@@ -23,9 +30,16 @@ export function Funnel({ title, levels }: { title: string; levels: Record<string
 }
 
 /* ---------- Куда уезжают ---------- */
+/** Куда уезжают выпускники одного региона. Доли — от 0 до 1: `stay` — остались в регионе, `top` — главные направления; «Другие регионы» считаются как остаток. */
 export interface Destinations { region: string; graduates: number; stay: number; top: { name: string; share: number }[] }
+export interface DestinationBarsProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Данные по регионам. Регион выбирается поиском в шапке, по умолчанию первый. */
+  data: Destinations[];
+}
 /** Где работают выпускники вузов региона: остались дома, главные направления, остальные. Один регион за раз. */
-export function DestinationBars({ title, data }: { title: string; data: Destinations[] }) {
+export function DestinationBars({ title, data }: DestinationBarsProps) {
   const [i, setI] = useState(0); const m = useMounted(); const d = data[i], other = 1 - d.stay - d.top.reduce((a, b) => a + b.share, 0);
   const rows: [string, number, number][] = [['Остались в регионе', d.stay, 1], ...d.top.map((t) => [t.name, t.share, 0] as [string, number, number]), ['Другие регионы', other, 2]], mx = Math.max(...rows.map((r) => r[1]));
   return (
@@ -37,9 +51,16 @@ export function DestinationBars({ title, data }: { title: string; data: Destinat
 }
 
 /* ---------- Баланс региона ---------- */
+/** Баланс региона, человек: выпустили вузы, остались работать, уехали, приехали. Итог = приехали − уехали. */
 export interface Balance { region: string; graduates: number; stayed: number; left: number; came: number }
+export interface RegionBalanceProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Данные по регионам. Регион выбирается поиском в шапке, по умолчанию первый. */
+  data: Balance[];
+}
 /** Сколько выпускников регион притягивает и сколько теряет. Итог одной фразой. */
-export function RegionBalance({ title, data }: { title: string; data: Balance[] }) {
+export function RegionBalance({ title, data }: RegionBalanceProps) {
   const [i, setI] = useState(0); const m = useMounted(); const d = data[i], net = d.came - d.left;
   const rows: [string, number][] = [['Выпустили вузы', d.graduates], ['Остались работать', d.stayed], ['Уехали работать', d.left], ['Приехали работать', d.came]];
   return (

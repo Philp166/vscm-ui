@@ -9,7 +9,14 @@ import { fmt, fmtShort } from '../../utils/format';
 import './structure.css';
 
 /* ---------- Вертикальные столбцы ---------- */
-export interface ColumnChartProps { title: string; items: { name: string; value: number }[]; total?: string }
+export interface ColumnChartProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Категории в исходном порядке. Названия длиннее 11 символов на оси обрезаются, полное — в подсказке. */
+  items: { name: string; value: number }[];
+  /** Строка итога над графиком, например «Всего студентов: 4 906 531». */
+  total?: string;
+}
 /** Вертикальные столбцы: нажатие выделяет категорию, сортировка с анимацией переезда. */
 export function ColumnChart({ title, items, total }: ColumnChartProps) {
   const m = useMounted(); const [sort, setSort] = useState(0); const [sel, setSel] = useState<string | null>(null); const [h, setH] = useState<number | null>(null);
@@ -31,7 +38,14 @@ export function ColumnChart({ title, items, total }: ColumnChartProps) {
 }
 
 /* ---------- Стековые столбцы ---------- */
-export interface StackedProps { title: string; labels: string[]; series: { name: string; values: number[] }[] }
+export interface StackedProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Подписи столбцов. */
+  labels: string[];
+  /** Слои снизу вверх, не больше четырёх. Длина `values` равна длине `labels`. */
+  series: { name: string; values: number[] }[];
+}
 /** Стековые столбцы: наведение подсвечивает слой во всех столбцах, числа / доли. */
 export function StackedColumns({ title, labels, series }: StackedProps) {
   const m = useMounted(); const [mode, setMode] = useState(0); const [hs, setHs] = useState<number | null>(null);
@@ -53,7 +67,14 @@ export function StackedColumns({ title, labels, series }: StackedProps) {
 }
 
 /* ---------- Полосы 100% ---------- */
-export interface Bar100Props { title: string; rows: { name: string; parts: number[] }[]; parts: string[] }
+export interface Bar100Props {
+  /** Заголовок карточки. */
+  title: string;
+  /** Строки: подпись и значения частей в порядке `parts`. Доли считаются от суммы строки, поэтому можно передавать и проценты, и абсолютные числа. */
+  rows: { name: string; parts: number[] }[];
+  /** Названия частей для легенды, не больше трёх. */
+  parts: string[];
+}
 /** Полосы 100%: как меняется структура по годам или по округам. */
 export function Bar100({ title, rows, parts }: Bar100Props) {
   const m = useMounted();
@@ -67,9 +88,18 @@ export function Bar100({ title, rows, parts }: Bar100Props) {
 }
 
 /* ---------- Раскрывающиеся столбцы ---------- */
+/** Категория раскрывающихся столбцов; `children` — подкатегории, не больше трёх. */
 export interface ExpandItem { name: string; value: number; children?: { name: string; value: number }[] }
+export interface ExpandBarsProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Категории. Строка без `children` не раскрывается. Доля в процентах считается от суммы всех категорий. */
+  items: ExpandItem[];
+  /** Единица после сокращённого значения. */
+  unit?: string;
+}
 /** Категории с подкатегориями: строка раскрывается, полоса делится на части. Замена тримапа. */
-export function ExpandBars({ title, items, unit = '' }: { title: string; items: ExpandItem[]; unit?: string }) {
+export function ExpandBars({ title, items, unit = '' }: ExpandBarsProps) {
   const m = useMounted(); const [open, setOpen] = useState<string[]>([]); const mx = Math.max(...items.map((i) => i.value)), tot = items.reduce((a, b) => a + b.value, 0);
   const all = open.length === items.length;
   return (
@@ -86,7 +116,14 @@ export function ExpandBars({ title, items, unit = '' }: { title: string; items: 
 }
 
 /* ---------- Бублик ---------- */
-export interface DonutProps { title: string; parts: { name: string; value: number }[]; centerLabel?: string }
+export interface DonutProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Доли, от двух до четырёх. Проценты считаются от суммы. */
+  parts: { name: string; value: number }[];
+  /** Подпись под итогом в центре. */
+  centerLabel?: string;
+}
 /** Бублик только для 2–4 долей: в центре итог, при наведении — выбранная доля. */
 export function Donut({ title, parts, centerLabel = 'всего' }: DonutProps) {
   const m = useMounted(); const [h, setH] = useState<number | null>(null); const tot = parts.reduce((a, b) => a + b.value, 0), R = 70, C = 2 * Math.PI * R;

@@ -13,11 +13,17 @@ const meta: Meta<typeof KpiCard> = {
 const narrow = [(Story: React.ComponentType) => <div style={{ maxWidth: 340 }}><Story /></div>];
 export default meta;
 type S = StoryObj<typeof KpiCard>;
+/** Число: цифра за последний год, изменение к прошлому году в процентах, мини-график. Проведите по графику — цифра и год меняются. */
 export const Число: S = { decorators: narrow };
+/** Доля: один знак после запятой, изменение в процентных пунктах (`deltaUnit=" п.п."`). */
 export const Доля: S = { decorators: narrow, args: { title: 'Трудоустроено', series: s([58, 61.3, 64.2, 65.8, 65.4]), unit: '%', digits: 1, deltaUnit: ' п.п.' } };
+/** Загрузка: скелет на месте цифры и графика. */
 export const Загрузка: S = { decorators: narrow, args: { state: 'loading' } };
+/** Нет данных за период: заголовок остаётся, вместо цифры пояснение. */
 export const НетДанных: S = { decorators: narrow, args: { title: 'Средний балл ЕГЭ при приёме', state: 'empty', emptyText: 'За 2024 год показатель ещё не загружен.' } };
+/** Четыре карточки в сетке, по три колонки каждая. */
 export const ВСетке: S = {
+  parameters: { vs: { components: [KpiCard, Grid] } },
   render: () => (
     <Grid>
       <div style={{ gridColumn: 'span 3' }}><KpiCard title="Выпускники" series={s([1520460, 1478300, 1573340, 1648528, 1703128])} /></div>

@@ -8,8 +8,13 @@ const meta: Meta<typeof Card> = {
   args: { title: 'Доля трудоустроенных выпускников', info: 'Доля от выпускников, трудоустроенных в течение года', footer: <><span>Источник: демо-данные</span><span>Обновлено 01.10.2026</span></>, children: 'Содержимое карточки' },
 };
 export default meta;
+
+/** Карточка с заголовком, подсказкой «i», содержимым и подвалом с источником. */
 export const Базовая: StoryObj<typeof Card> = {};
+
+/** Сетка бенто из 12 колонок: карточки шириной 3, 4, 6 и 12 колонок. */
 export const СеткаБенто: StoryObj<typeof Card> = {
+  parameters: { vs: { components: [Grid, Card] } },
   render: () => (
     <Grid>
       <Card span={3} title="3 колонки">KPI</Card><Card span={3} title="3 колонки">KPI</Card><Card span={6} title="6 колонок">График</Card>

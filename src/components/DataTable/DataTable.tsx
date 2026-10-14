@@ -5,10 +5,35 @@ import { Card } from '../Card/Card';
 import { fmt } from '../../utils/format';
 import './DataTable.css';
 
-export interface Column<T> { key: keyof T & string; title: string; align?: 'left' | 'right'; render?: (row: T) => React.ReactNode; digits?: number; total?: boolean }
-export interface DataTableProps<T> { title: string; columns: Column<T>[]; rows: T[]; maxHeight?: number; onExport?: () => void }
+/** Описание столбца таблицы. */
+export interface Column<T> {
+  /** Поле строки, которое выводится в столбце. */
+  key: keyof T & string;
+  /** Заголовок столбца. */
+  title: string;
+  /** Выравнивание: текст — `left`, числа — `right` (по умолчанию). */
+  align?: 'left' | 'right';
+  /** Своя отрисовка ячейки. Сортировка и итог всё равно идут по значению поля. */
+  render?: (row: T) => React.ReactNode;
+  /** Знаков после запятой для чисел. */
+  digits?: number;
+  /** Считать сумму в строке «Итого». */
+  total?: boolean;
+}
+export interface DataTableProps<T> {
+  /** Заголовок карточки. */
+  title: string;
+  /** Столбцы. Первый закреплён и не скрывается; по умолчанию сортировка по последнему столбцу по убыванию. */
+  columns: Column<T>[];
+  /** Строки. Поиск идёт по текстовым полям. */
+  rows: T[];
+  /** Высота области прокрутки, px: шапка закреплена. */
+  maxHeight?: number;
+  /** Обработчик кнопки «Выгрузить». Если не задан, кнопки нет. */
+  onExport?: () => void;
+}
 
-/** Базовая таблица: сортировка по заголовку, закреплённые шапка и первый столбец, поиск, итог по найденным. */
+/** Базовая таблица: сортировка по заголовку, закреплённые шапка и первый столбец, поиск, выбор столбцов, плотность, итог по найденным. */
 export function DataTable<T extends Record<string, unknown>>({ title, columns, rows, maxHeight = 460, onExport }: DataTableProps<T>) {
   const [sort, setSort] = useState<{ k: string; d: 1 | -1 }>({ k: columns[columns.length - 1].key, d: -1 });
   const [q, setQ] = useState('');

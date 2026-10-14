@@ -1,7 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Funnel, DestinationBars, RegionBalance } from './Flows';
-const meta: Meta = { title: 'Потоки и схемы/Блоки' };
+const meta: Meta = {
+  title: 'Потоки и схемы/Блоки',
+  parameters: { docs: { description: { component: 'Движение людей: воронка пути выпускника, куда уезжают выпускники региона и баланс притока и оттока. Вывод каждого блока дублируется одной фразой.' } } },
+};
 export default meta;
-export const ВоронкаПути: StoryObj = { render: () => <Funnel title="Путь выпускника, 2024" levels={{ ВО: [{ name: 'Заявления', sub: 'подано при приёме', value: 2860000 }, { name: 'Зачисление', sub: 'стали студентами', value: 1124000 }, { name: 'Выпуск', sub: 'получили диплом', value: 864253 }, { name: 'Трудоустройство', sub: 'работают через год', value: 631000 }], СПО: [{ name: 'Заявления', sub: 'подано при приёме', value: 1950000 }, { name: 'Зачисление', sub: 'стали студентами', value: 1010000 }, { name: 'Выпуск', sub: 'получили диплом', value: 838875 }, { name: 'Трудоустройство', sub: 'работают через год', value: 482000 }] }} /> };
-export const КудаУезжают: StoryObj = { render: () => <DestinationBars title="Где работают выпускники вузов региона, 2024" data={[{ region: 'Томская обл.', graduates: 21000, stay: 0.47, top: [{ name: 'Новосибирская обл.', share: 0.124 }, { name: 'Москва', share: 0.122 }, { name: 'Санкт-Петербург', share: 0.065 }, { name: 'Московская обл.', share: 0.054 }, { name: 'Свердловская обл.', share: 0.033 }] }, { region: 'Татарстан', graduates: 54000, stay: 0.76, top: [{ name: 'Москва', share: 0.07 }, { name: 'Самарская обл.', share: 0.025 }, { name: 'Московская обл.', share: 0.024 }, { name: 'Санкт-Петербург', share: 0.02 }] }]} /> };
-export const БалансРегиона: StoryObj = { render: () => <RegionBalance title="Приток и отток выпускников, 2024" data={[{ region: 'Москва', graduates: 212000, stayed: 150000, left: 62000, came: 96000 }, { region: 'Томская обл.', graduates: 21000, stayed: 9900, left: 11100, came: 2400 }]} /> };
+/** Путь выпускника: заявления → зачисление → выпуск → трудоустройство. Процент перехода между ступенями и самая большая потеря словами. */
+export const ВоронкаПути: StoryObj<typeof Funnel> = {
+  parameters: { vs: { component: Funnel } },
+  args: { title: 'Путь выпускника, 2024', levels: { ВО: [{ name: 'Заявления', sub: 'подано при приёме', value: 2860000 }, { name: 'Зачисление', sub: 'стали студентами', value: 1124000 }, { name: 'Выпуск', sub: 'получили диплом', value: 864253 }, { name: 'Трудоустройство', sub: 'работают через год', value: 631000 }], СПО: [{ name: 'Заявления', sub: 'подано при приёме', value: 1950000 }, { name: 'Зачисление', sub: 'стали студентами', value: 1010000 }, { name: 'Выпуск', sub: 'получили диплом', value: 838875 }, { name: 'Трудоустройство', sub: 'работают через год', value: 482000 }] } },
+};
+/** Где работают выпускники вузов региона: остались дома, главные направления, остальные регионы. Регион выбирается поиском. */
+export const КудаУезжают: StoryObj<typeof DestinationBars> = {
+  parameters: { vs: { component: DestinationBars } },
+  args: { title: 'Где работают выпускники вузов региона, 2024', data: [{ region: 'Томская обл.', graduates: 21000, stay: 0.47, top: [{ name: 'Новосибирская обл.', share: 0.124 }, { name: 'Москва', share: 0.122 }, { name: 'Санкт-Петербург', share: 0.065 }, { name: 'Московская обл.', share: 0.054 }, { name: 'Свердловская обл.', share: 0.033 }] }, { region: 'Татарстан', graduates: 54000, stay: 0.76, top: [{ name: 'Москва', share: 0.07 }, { name: 'Самарская обл.', share: 0.025 }, { name: 'Московская обл.', share: 0.024 }, { name: 'Санкт-Петербург', share: 0.02 }] }] },
+};
+/** Сколько выпускников регион притягивает и сколько теряет. Итог одной фразой. */
+export const БалансРегиона: StoryObj<typeof RegionBalance> = {
+  parameters: { vs: { component: RegionBalance } },
+  args: { title: 'Приток и отток выпускников, 2024', data: [{ region: 'Москва', graduates: 212000, stayed: 150000, left: 62000, came: 96000 }, { region: 'Томская обл.', graduates: 21000, stayed: 9900, left: 11100, came: 2400 }] },
+};

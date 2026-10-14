@@ -3,7 +3,16 @@ import { Segment } from '../Segment/Segment';
 import logo from '../../assets/logo.svg?raw';
 import './foundation.css';
 
-export interface TopNavProps { items?: string[]; active?: number; initials?: string; onSelect?: (i: number) => void }
+export interface TopNavProps {
+  /** Пункты меню. */
+  items?: string[];
+  /** Индекс активного пункта. */
+  active?: number;
+  /** Инициалы пользователя в кружке профиля. */
+  initials?: string;
+  /** Вызывается с индексом выбранного пункта. */
+  onSelect?: (i: number) => void;
+}
 /** Верхнее меню платформы: чёрное, логотип, разделы капсулами, поиск, ассистент, уведомления, профиль. */
 export function TopNav({ items = ['Обзор', 'Показатели', 'Справки', 'Данные'], active = 0, initials = 'ФФ', onSelect }: TopNavProps) {
   return (
@@ -20,7 +29,16 @@ export function TopNav({ items = ['Обзор', 'Показатели', 'Спр�
   );
 }
 
-export interface LevelBarProps { title: string; sub?: string; level: number; onLevel?: (i: number) => void }
+export interface LevelBarProps {
+  /** Название раздела. */
+  title: string;
+  /** Серая приписка после названия. */
+  sub?: string;
+  /** Индекс уровня: 0 — «Сводка», 1 — «Анализ», 2 — «Первичка». */
+  level: number;
+  /** Вызывается с индексом выбранного уровня. */
+  onLevel?: (i: number) => void;
+}
 /** Полоса раздела под меню: название и уровень «Сводка / Анализ / Первичка». */
 export function LevelBar({ title, sub = 'раздел', level, onLevel }: LevelBarProps) {
   return (

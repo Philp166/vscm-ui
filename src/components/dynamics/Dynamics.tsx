@@ -11,7 +11,14 @@ const MONTHS = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'и�
 const P = { l: 8, r: 56, t: 16, b: 28 };
 
 /* ---------- Сравнение лет по месяцам ---------- */
-export interface YearCompareProps { title: string; byYear: Record<string, number[]>; current: string }
+export interface YearCompareProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Значения по месяцам для каждого года: ключ — год, значение — ровно 12 чисел (январь–декабрь). Сначала включены три последних года, остальные — капсулами в шапке. */
+  byYear: Record<string, number[]>;
+  /** Текущий год: рисуется жирной синей линией. */
+  current: string;
+}
 /** Режим «Сравнить годы»: ось январь–декабрь, годы капсулами, текущий год жирной линией. */
 export function YearCompare({ title, byYear, current }: YearCompareProps) {
   const years = Object.keys(byYear); const [on, setOn] = useState<string[]>(years.slice(-3)); const [h, setH] = useState<number | null>(null);
@@ -34,7 +41,14 @@ export function YearCompare({ title, byYear, current }: YearCompareProps) {
 }
 
 /* ---------- Площадной: состав во времени ---------- */
-export interface AreaChartProps { title: string; labels: string[]; series: { name: string; values: number[] }[] }
+export interface AreaChartProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Подписи по оси X. */
+  labels: string[];
+  /** Слои снизу вверх, не больше четырёх. Длина `values` равна длине `labels`. Доли в режиме «Доли» считаются от суммы слоёв. */
+  series: { name: string; values: number[] }[];
+}
 /** Площадной график: как меняется состав. Переключатель числа / доли. */
 export function AreaChart({ title, labels, series }: AreaChartProps) {
   const [mode, setMode] = useState(0); const [h, setH] = useState<number | null>(null);
@@ -61,7 +75,16 @@ export function AreaChart({ title, labels, series }: AreaChartProps) {
 }
 
 /* ---------- Столбцы и линия: две меры ---------- */
-export interface ComboChartProps { title: string; labels: string[]; bars: { name: string; values: number[] }; line: { name: string; values: number[]; unit?: string } }
+export interface ComboChartProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Подписи по оси X. */
+  labels: string[];
+  /** Столбцы: количество, левая ось от нуля. */
+  bars: { name: string; values: number[] };
+  /** Линия: доля или другая мера, правая ось. `unit` дописывается к подписям оси и подсказке. */
+  line: { name: string; values: number[]; unit?: string };
+}
 /** Две меры на одном графике: столбцы — количество (левая ось), линия — доля (правая ось). */
 export function ComboChart({ title, labels, bars, line }: ComboChartProps) {
   const m = useMounted(); const [h, setH] = useState<number | null>(null);
@@ -88,7 +111,20 @@ export function ComboChart({ title, labels, bars, line }: ComboChartProps) {
 }
 
 /* ---------- План и факт ---------- */
-export interface PlanFactProps { title: string; labels: string[]; plan: number[]; fact: (number | null)[]; forecast?: number[]; unit?: string }
+export interface PlanFactProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Подписи по оси X (обычно месяцы). */
+  labels: string[];
+  /** План нарастающим итогом, по одному значению на каждую подпись. */
+  plan: number[];
+  /** Факт нарастающим итогом. Будущие периоды — `null`. Процент выполнения считается по последней непустой точке. */
+  fact: (number | null)[];
+  /** Прогноз от последней точки факта до конца периода (первое значение совпадает с последним фактом). По последнему значению считается «прогноз на конец года». */
+  forecast?: number[];
+  /** Единица у подписей оси. */
+  unit?: string;
+}
 /** План пунктиром, факт сплошной, прогноз точками до конца периода. Сверху процент выполнения. */
 export function PlanFact({ title, labels, plan, fact, forecast, unit = '' }: PlanFactProps) {
   const last = fact.reduce<number>((a, v, i) => (v != null ? i : a), 0), done = (fact[last]! / plan[last]) * 100, yearDone = forecast ? (forecast[forecast.length - 1] / plan[plan.length - 1]) * 100 : null;
@@ -113,9 +149,21 @@ export function PlanFact({ title, labels, plan, fact, forecast, unit = '' }: Pla
 }
 
 /* ---------- Спарклайны в таблице ---------- */
+/** Строка таблицы со спарклайном. */
 export interface SparkRow { name: string; values: number[] }
-/** Таблица со спарклайном в каждой строке: тренд, последнее значение, изменение. */
-export function SparkTable({ title, rows, years, unit = '%' }: { title: string; rows: SparkRow[]; years: string[]; unit?: string }) {
+export interface SparkTableProps {
+  /** Заголовок карточки. */
+  title: string;
+  /** Строки: название и значения по годам (по одному на каждый год из `years`). */
+  rows: SparkRow[];
+  /** Годы по возрастанию: из них собираются заголовки «2020–2024», «2024», «К 2023». */
+  years: string[];
+  /** Единица у последнего значения и изменения. */
+  unit?: string;
+}
+/** Таблица со спарклайном в каждой строке: тренд, последнее значение, изменение.
+ *  Ограничение: заголовок первого столбца «Округ» встроен в компонент. */
+export function SparkTable({ title, rows, years, unit = '%' }: SparkTableProps) {
   return (
     <Card title={title}>
       <div className="vs-spt">
